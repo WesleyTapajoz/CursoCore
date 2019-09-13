@@ -32,11 +32,10 @@ export class EventosComponent implements OnInit {
 
   set filtroLista(value: string){
     this._filtroLista = value;
-    this.eventosFiltrados = this.filtroLista ? this.filtraEvento(this.filtroLista) : this.eventos;
+    this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
 
   eventosFiltrados: any = [];
-
   eventos: any = [];
   imagemLargura = 70;
   imagemMargem = 2;
@@ -50,6 +49,13 @@ export class EventosComponent implements OnInit {
 
   alternarImagem(){
     this.mostrarImagem = !this.mostrarImagem;
+  }
+
+  filtrarEventos(filtrarPor: string): any {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.eventos.filter(
+      evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    );
   }
 
   getEventos(){
